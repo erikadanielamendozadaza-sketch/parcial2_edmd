@@ -11,4 +11,5 @@ export interface Programa {
   fechaInicio: Date
   estado: 'En Planificación' | 'En curso' | 'Finalizado'
   nivelAcademico: NivelAcademico
+  areaConocimiento: 'Derecho' | 'Educación' | 'Ingeniería' | 'Salud'
 }

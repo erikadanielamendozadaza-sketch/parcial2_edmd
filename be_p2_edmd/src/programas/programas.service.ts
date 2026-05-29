@@ -8,7 +8,7 @@ import { ILike, Repository } from 'typeorm';
 @Injectable()
 export class ProgramasService {
   constructor(@InjectRepository(Programa) private programasRepository: Repository<Programa>) {}
-  
+
   async create(createProgramaDto: CreateProgramaDto): Promise<Programa> {
     let programa = await this.programasRepository.findOneBy({
       idNivelAcademico: createProgramaDto.idNivelAcademico,
@@ -22,22 +22,22 @@ export class ProgramasService {
   }
 
   async findAll(): Promise<Programa[]> {
-  return this.programasRepository.find({
-    relations: {
-      nivelAcademico: true,
-    },
-    order: {
-      nivelAcademico: {
-        nombre: 'ASC',
+    return this.programasRepository.find({
+      relations: {
+        nivelAcademico: true,
       },
-    },
-  });
-}
+      order: {
+        nivelAcademico: {
+          nombre: 'ASC',
+        },
+      },
+    });
+  }
 
   async findOne(id: number): Promise<Programa> {
     const programa = await this.programasRepository.findOne({
-      where: {id},
-      relations: { nivelAcademico: true},
+      where: { id },
+      relations: { nivelAcademico: true },
     });
     if (!programa) throw new NotFoundException('El programa no existe');
     return programa;
@@ -45,8 +45,8 @@ export class ProgramasService {
 
   async update(id: number, updateProgramaDto: UpdateProgramaDto): Promise<Programa> {
     const programa = await this.programasRepository.findOneBy({ id });
-    if(!programa) throw new NotFoundException('El programa no existe');
-    
+    if (!programa) throw new NotFoundException('El programa no existe');
+
     Object.assign(programa, updateProgramaDto);
     return this.programasRepository.save(programa);
   }
@@ -56,4 +56,3 @@ export class ProgramasService {
     return this.programasRepository.softRemove(programa);
   }
 }
-

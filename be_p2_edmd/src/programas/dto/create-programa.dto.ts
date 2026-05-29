@@ -52,4 +52,13 @@ export class CreateProgramaDto {
   @MaxLength(20, { message: 'El campo estado no debe exceder los 20 caracteres' })
   @Transform(({ value }): string | undefined => (typeof value === 'string' ? value.trim() : value))
   estado: string;
+
+  @ApiProperty()
+  @IsOptional()
+  @IsString({ message: 'El campo area de conocimiento debe ser de tipo cadena' })
+  @MaxLength(100, {
+    message: 'El campo area de conocimiento no debe exceder los 100 caracteres',
+  })
+  @Transform(({ value }): string | undefined => (typeof value === 'string' ? value.trim() : value))
+  areaConocimiento:string;
 }
